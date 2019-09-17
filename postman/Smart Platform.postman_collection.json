@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "c7163be4-1bed-484e-9f95-60146a601986",
+		"name": "Smart Platform",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Lottery Service - Generate Random",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Consumer-Name",
+						"value": "Postman",
+						"type": "text"
+					},
+					{
+						"key": "Request-Id",
+						"value": "postman0-0000-0000-0000-postman00000",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{lotteryServiceBaseUrl}}/lottery/:lotteryType/numbers/random",
+					"host": [
+						"{{lotteryServiceBaseUrl}}"
+					],
+					"path": [
+						"lottery",
+						":lotteryType",
+						"numbers",
+						"random"
+					],
+					"variable": [
+						{
+							"key": "lotteryType",
+							"value": "five-out-of-ninety"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edge Service - Lottery Number Retrieve",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Consumer-Name",
+						"type": "text",
+						"value": "Postman"
+					},
+					{
+						"key": "Request-Id",
+						"type": "text",
+						"value": "postman0-0000-0000-0000-postman00000"
+					}
+				],
+				"url": {
+					"raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/:lotteryType/numbers/random",
+					"host": [
+						"{{edgeServiceBaseUrl}}"
+					],
+					"path": [
+						"retrieve",
+						"lottery",
+						":lotteryType",
+						"numbers",
+						"random"
+					],
+					"variable": [
+						{
+							"key": "lotteryType",
+							"value": "five-out-of-ninety"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

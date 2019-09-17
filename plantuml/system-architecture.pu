@@ -1,0 +1,41 @@
+@startuml
+cloud SMTP as smtp
+database "Lottery Numbers" as lotteryNumbersDb
+
+component "DMZ Backend" as dmz {
+[Lottery Service] as lotteryService
+[Scheduler Service] as schedulerService
+[User Service] as userService
+[Email Service] as emailService
+database "RDB" as lotteryDb
+database "RDB" as schedulerDb
+database "RDB" as emailDb
+database "RDB" as userDb
+database "NoSql" as sessionStore
+queue JMS as jms
+}
+
+component "Public Backend" as public {
+[Edge Service] as edgeService
+}
+
+component "Frontend" as frontend {
+[Smart Platform App] as smartPlatformApp
+}
+
+smartPlatformApp --> edgeService
+edgeService --> lotteryService
+edgeService --> schedulerService
+edgeService --> emailService
+edgeService --> userService
+lotteryService --> lotteryDb
+lotteryService --> lotteryNumbersDb
+schedulerService --> schedulerDb
+schedulerService --> lotteryService
+schedulerService --> jms
+emailService --> emailDb
+emailService --> smtp
+userService --> userDb
+userService --> sessionStore
+jms --> emailService
+@enduml

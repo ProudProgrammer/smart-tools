@@ -9,5 +9,19 @@ Tools for Smart Platform
 - Postman collections for manual testing
 - Shell scripts for automation of builds, run, etc.
 ```
+
+### Starter script
+```
+Usage: ./start.sh [-u | --update -t | --tests -d | --docker]
+Options:
+    -h, --h         print help
+    -u, --update    update git repositories
+    -t, --tests     run unit and integration tests
+    -d, --docker    build images, clean containers and images, start containers
+
+Automation script for Smart-Platform.
+It can clone/pull git repositories, build jars, build docker images, start containers, delete old docker images and containers.
+```
+
 ### System architecture of Smart Platform
 ![System Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/system-architecture.png)

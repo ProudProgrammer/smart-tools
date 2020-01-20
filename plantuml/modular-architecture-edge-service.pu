@@ -1,0 +1,22 @@
+@startuml
+package "Level 0" {
+[service] as service
+}
+package "Level 1" {
+[lottery-service-client] as lottery_service_client
+[web] as web
+}
+package "Level 2" {
+[application] as application
+}
+package "Level 3" {
+[integration-test] as integration_test
+[release] as release
+}
+lottery_service_client --> service
+web --> service
+application --> web
+application --> lottery_service_client
+integration_test --> application
+release --> application
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+package "Level 0" {
+[bet-dao] as bet_dao
+[db-dao] as db_dao
+}
+package "Level 1" {
+[service] as service
+}
+package "Level 2" {
+[web] as web
+}
+package "Level 3" {
+[application] as application
+}
+package "Level 4" {
+[integration-test] as integration_test
+[release] as release
+}
+service --> db_dao
+service --> bet_dao
+web --> service
+application --> web
+integration_test --> application
+release --> application
+@enduml

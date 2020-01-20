@@ -24,4 +24,8 @@ It can clone/pull git repositories, build jars, build docker images, start conta
 ```
 
 ### System architecture of Smart Platform
+Applied software development techniques:
+- Microservice Architecture
+- API Gateway Pattern
+
 ![System Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/system-architecture.png)

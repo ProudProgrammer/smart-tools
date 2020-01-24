@@ -22,7 +22,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{lotteryServiceBaseUrl}}/lottery/:lotteryType/numbers/random",
+					"raw": "{{lotteryServiceBaseUrl}}/lottery/:lotteryType/numbers/random?generatorType=default",
 					"host": [
 						"{{lotteryServiceBaseUrl}}"
 					],
@@ -32,10 +32,19 @@
 						"numbers",
 						"random"
 					],
+					"query": [
+						{
+							"key": "generatorType",
+							"value": "default",
+							"description": "[default,experimental]"
+						}
+					],
 					"variable": [
 						{
 							"key": "lotteryType",
-							"value": "five-out-of-ninety"
+							"value": "five-out-of-ninety",
+							"type": "string",
+							"description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]"
 						}
 					]
 				}
@@ -43,7 +52,7 @@
 			"response": []
 		},
 		{
-			"name": "Edge Service - Lottery Number Retrieve",
+			"name": "Edge Service - Retrieve Lottery Number",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -59,7 +68,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/:lotteryType/numbers/random",
+					"raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/:lotteryType/numbers/random?generatorType=default",
 					"host": [
 						"{{edgeServiceBaseUrl}}"
 					],
@@ -70,9 +79,18 @@
 						"numbers",
 						"random"
 					],
+					"query": [
+						{
+							"key": "generatorType",
+							"value": "default",
+							"description": "[default,experimental]"
+						}
+					],
 					"variable": [
 						{
+							"description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]",
 							"key": "lotteryType",
+							"type": "string",
 							"value": "five-out-of-ninety"
 						}
 					]
@@ -80,5 +98,6 @@
 			},
 			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

@@ -1,103 +1,346 @@
 {
-	"info": {
-		"_postman_id": "c7163be4-1bed-484e-9f95-60146a601986",
-		"name": "Smart Platform",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Lottery Service - Generate Random",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Consumer-Name",
-						"value": "Postman",
-						"type": "text"
-					},
-					{
-						"key": "Request-Id",
-						"value": "postman0-0000-0000-0000-postman00000",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{lotteryServiceBaseUrl}}/lottery/:lotteryType/numbers/random?generatorType=default",
-					"host": [
-						"{{lotteryServiceBaseUrl}}"
-					],
-					"path": [
-						"lottery",
-						":lotteryType",
-						"numbers",
-						"random"
-					],
-					"query": [
-						{
-							"key": "generatorType",
-							"value": "default",
-							"description": "[default,experimental]"
-						}
-					],
-					"variable": [
-						{
-							"key": "lotteryType",
-							"value": "five-out-of-ninety",
-							"type": "string",
-							"description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Edge Service - Retrieve Lottery Number",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Consumer-Name",
-						"type": "text",
-						"value": "Postman"
-					},
-					{
-						"key": "Request-Id",
-						"type": "text",
-						"value": "postman0-0000-0000-0000-postman00000"
-					}
-				],
-				"url": {
-					"raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/:lotteryType/numbers/random?generatorType=default",
-					"host": [
-						"{{edgeServiceBaseUrl}}"
-					],
-					"path": [
-						"retrieve",
-						"lottery",
-						":lotteryType",
-						"numbers",
-						"random"
-					],
-					"query": [
-						{
-							"key": "generatorType",
-							"value": "default",
-							"description": "[default,experimental]"
-						}
-					],
-					"variable": [
-						{
-							"description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]",
-							"key": "lotteryType",
-							"type": "string",
-							"value": "five-out-of-ninety"
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"protocolProfileBehavior": {}
+  "info": {
+    "_postman_id": "c7163be4-1bed-484e-9f95-60146a601986",
+    "name": "Smart Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "LotteryService - Generate with LotteryType",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{lotteryServiceBaseUrl}}/lottery/:lotteryType/numbers",
+          "host": [
+            "{{lotteryServiceBaseUrl}}"
+          ],
+          "path": [
+            "lottery",
+            ":lotteryType",
+            "numbers"
+          ],
+          "variable": [
+            {
+              "key": "lotteryType",
+              "value": "five-out-of-ninety",
+              "type": "string",
+              "description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LotteryService - Generate with LotteryType & GeneratorType",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{lotteryServiceBaseUrl}}/lottery/:lotteryType/numbers?generatorType=experimental",
+          "host": [
+            "{{lotteryServiceBaseUrl}}"
+          ],
+          "path": [
+            "lottery",
+            ":lotteryType",
+            "numbers"
+          ],
+          "query": [
+            {
+              "key": "generatorType",
+              "value": "experimental",
+              "description": "[default,experimental]"
+            }
+          ],
+          "variable": [
+            {
+              "key": "lotteryType",
+              "value": "five-out-of-ninety",
+              "type": "string",
+              "description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LotteryService - Generate with Quantity & PoolSize",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{lotteryServiceBaseUrl}}/lottery/numbers?quantity=6&poolSize=59",
+          "host": [
+            "{{lotteryServiceBaseUrl}}"
+          ],
+          "path": [
+            "lottery",
+            "numbers"
+          ],
+          "query": [
+            {
+              "key": "quantity",
+              "value": "6"
+            },
+            {
+              "key": "poolSize",
+              "value": "59"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LotteryService - Generate with Quantity & PoolSize & GeneratorType",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{lotteryServiceBaseUrl}}/lottery/numbers?quantity=5&poolSize=90&generatorType=experimental",
+          "host": [
+            "{{lotteryServiceBaseUrl}}"
+          ],
+          "path": [
+            "lottery",
+            "numbers"
+          ],
+          "query": [
+            {
+              "key": "quantity",
+              "value": "5"
+            },
+            {
+              "key": "poolSize",
+              "value": "90"
+            },
+            {
+              "key": "generatorType",
+              "value": "experimental",
+              "description": "[default,experimental]"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EdgeService - RetrieveLottery with LotteryType",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/:lotteryType/numbers",
+          "host": [
+            "{{edgeServiceBaseUrl}}"
+          ],
+          "path": [
+            "retrieve",
+            "lottery",
+            ":lotteryType",
+            "numbers"
+          ],
+          "variable": [
+            {
+              "description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]",
+              "key": "lotteryType",
+              "type": "string",
+              "value": "five-out-of-ninety"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EdgeService - RetrieveLottery with LotteryType & GeneratorType",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/:lotteryType/numbers?generatorType=experimental",
+          "host": [
+            "{{edgeServiceBaseUrl}}"
+          ],
+          "path": [
+            "retrieve",
+            "lottery",
+            ":lotteryType",
+            "numbers"
+          ],
+          "query": [
+            {
+              "key": "generatorType",
+              "value": "experimental",
+              "description": "[default,experimental]"
+            }
+          ],
+          "variable": [
+            {
+              "description": "[five-out-of-ninety,six-out-of-forty-five,scandinavian]",
+              "key": "lotteryType",
+              "type": "string",
+              "value": "five-out-of-ninety"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EdgeService - RetrieveLottery with Quantity & PoolSize",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/numbers?quantity=6&poolSize=59",
+          "host": [
+            "{{edgeServiceBaseUrl}}"
+          ],
+          "path": [
+            "retrieve",
+            "lottery",
+            "numbers"
+          ],
+          "query": [
+            {
+              "key": "quantity",
+              "value": "6"
+            },
+            {
+              "key": "poolSize",
+              "value": "59"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EdgeService - RetrieveLottery with Quantity & PoolSize & GeneratorType",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Consumer-Name",
+            "type": "text",
+            "value": "Postman"
+          },
+          {
+            "key": "Request-Id",
+            "type": "text",
+            "value": "postman0-0000-0000-0000-postman00000"
+          }
+        ],
+        "url": {
+          "raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/numbers?quantity=5&poolSize=90&generatorType=experimental",
+          "host": [
+            "{{edgeServiceBaseUrl}}"
+          ],
+          "path": [
+            "retrieve",
+            "lottery",
+            "numbers"
+          ],
+          "query": [
+            {
+              "key": "quantity",
+              "value": "5"
+            },
+            {
+              "key": "poolSize",
+              "value": "90"
+            },
+            {
+              "key": "generatorType",
+              "value": "experimental",
+              "description": "[default,experimental]"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
 }

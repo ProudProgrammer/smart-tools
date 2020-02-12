@@ -205,6 +205,11 @@
             "key": "Request-Id",
             "type": "text",
             "value": "postman0-0000-0000-0000-postman00000"
+          },
+          {
+            "key": "Locale",
+            "value": "hu-HU",
+            "type": "text"
           }
         ],
         "url": {
@@ -244,6 +249,11 @@
             "key": "Request-Id",
             "type": "text",
             "value": "postman0-0000-0000-0000-postman00000"
+          },
+          {
+            "key": "Locale",
+            "value": "hu-HU",
+            "type": "text"
           }
         ],
         "url": {
@@ -290,6 +300,11 @@
             "key": "Request-Id",
             "type": "text",
             "value": "postman0-0000-0000-0000-postman00000"
+          },
+          {
+            "key": "Locale",
+            "value": "hu-HU",
+            "type": "text"
           }
         ],
         "url": {
@@ -330,10 +345,15 @@
             "key": "Request-Id",
             "type": "text",
             "value": "postman0-0000-0000-0000-postman00000"
+          },
+          {
+            "key": "Locale",
+            "value": "hu-HU",
+            "type": "text"
           }
         ],
         "url": {
-          "raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/numbers?quantity=6&poolSize=90&generatorType=experimental",
+          "raw": "{{edgeServiceBaseUrl}}/retrieve/lottery/numbers?quantity=5&poolSize=90&generatorType=experimental",
           "host": [
             "{{edgeServiceBaseUrl}}"
           ],
@@ -345,7 +365,7 @@
           "query": [
             {
               "key": "quantity",
-              "value": "6"
+              "value": "5"
             },
             {
               "key": "poolSize",

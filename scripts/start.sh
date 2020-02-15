@@ -16,6 +16,7 @@ LOGGING_FILTER="smart-logging-filter;https://github.com/ProudProgrammer/smart-lo
 LOTTERY_SERVICE_CLIENT="smart-lottery-service-client;https://github.com/ProudProgrammer/smart-lottery-service-client.git"
 LOTTERY_SERVICE="smart-lottery-service;https://github.com/ProudProgrammer/smart-lottery-service.git;8081"
 EDGE_SERVICE="smart-edge-service;https://github.com/ProudProgrammer/smart-edge-service.git;8080"
+TOOLS="smart-tools"
 
 PROJECTS=("$LOGGING_FILTER" "$LOTTERY_SERVICE_CLIENT" "$LOTTERY_SERVICE" "$EDGE_SERVICE")
 
@@ -52,25 +53,35 @@ function check_dependencies() {
   echo -e "\n${COLOR_HEADER}Checking dependencies...${COLOR_RESET}"
   command -v git >/dev/null 2>&1 || {
     echo >&2 "Git is not installed. Exiting..."
-    exit
+    exit 0
   }
   command -v mvn >/dev/null 2>&1 || {
     echo >&2 "Maven is not installed. Exiting..."
-    exit
+    exit 0
   }
   if [[ ${DOCKER} == true ]]; then
     command -v jq >/dev/null 2>&1 || {
       echo >&2 "Jq is not installed. Exiting..."
-      exit
+      exit 0
     }
     command -v docker >/dev/null 2>&1 || {
       echo >&2 "Docker is not installed. Exiting..."
-      exit
+      exit 0
     }
   fi
 }
 
-function clone_repositories() {
+function update_tools() {
+  echo -e "\n${COLOR_HEADER}Updating ${TOOLS}...${COLOR_RESET}"
+  cd $TOOLS || {
+    echo >&2 "${TOOLS} folder not found. Exiting..."
+    exit 0
+  }
+  git pull
+  cd ..
+}
+
+function clone_update_repositories() {
   IFS=';'
   for PROJECT in "${PROJECTS[@]}"; do
     read -ra PROJECT_AS_ARRAY <<<"$PROJECT"
@@ -80,11 +91,13 @@ function clone_repositories() {
       git clone "${PROJECT_AS_ARRAY[1]}"
     elif [[ ${UPDATE} == true ]]; then
       echo -e "\n${COLOR_HEADER}Updating ${PROJECT_AS_ARRAY[0]}...${COLOR_RESET}"
-      (
-        cd "${PROJECT_AS_ARRAY[0]}" || exit
-        git checkout master
-        git pull
-      )
+      cd "${PROJECT_AS_ARRAY[0]}" || {
+        echo >&2 "${PROJECT_AS_ARRAY[0]} folder not found. Exiting..."
+        exit 0
+      }
+      git checkout master
+      git pull
+      cd ..
     fi
   done
   IFS=' '
@@ -130,7 +143,8 @@ function start_containers() {
 function init() {
   START_TIME=$SECONDS
   check_dependencies
-  clone_repositories
+  update_tools
+  clone_update_repositories
   set_maven_profiles_active
   build_projects
   if [[ ${DOCKER} == true ]]; then

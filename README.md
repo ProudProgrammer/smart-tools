@@ -28,6 +28,15 @@ Options:
 Automation script for Smart-Platform.
 It can stop containers.
 ```
+### Updater script
+```
+Usage: ./update.sh
+Options:
+    -h, --h         print help
+
+Automation script for Smart-Platform.
+It can clone/pull git repositories.
+```
 ### System architecture of Smart Platform
 Applied software development techniques:
 - Microservice Architecture

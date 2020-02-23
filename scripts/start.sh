@@ -126,8 +126,8 @@ function build_projects() {
 
 function clean_containers_and_images() {
   echo -e "\n${COLOR_HEADER}Cleaning up docker containers and images...${COLOR_RESET}"
-  docker container stop "$(docker ps | grep "$(docker images | grep "^<none>" | awk '{ print $3 }')" | awk '{ print $1 }')"
-  docker container rm -f "$(docker ps | grep "$(docker images | grep "^<none>" | awk '{ print $3 }')" | awk '{ print $1 }')"
+  docker container stop $(docker ps | grep "$(docker images | grep "^<none>" | awk '{ print $3 }')" | awk '{ print $1 }')
+  docker container rm -f $(docker ps | grep "$(docker images | grep "^<none>" | awk '{ print $3 }')" | awk '{ print $1 }')
   docker system prune -f
 }
 

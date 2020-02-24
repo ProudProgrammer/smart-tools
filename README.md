@@ -7,7 +7,7 @@ Tools for Smart Platform
 - Postman collections for manual testing
 - Shell scripts for automation of builds, run, etc.
 ```
-### Starter script
+### Build script
 ```
 Usage: ./start.sh [-u | --update -t | --tests -d | --docker]
 Options:
@@ -17,9 +17,18 @@ Options:
     -d, --docker    build images, clean containers and images, start containers
 
 Automation script for Smart-Platform.
-It can clone/pull git repositories, build jars, build docker images, start containers, delete old docker images and containers.
+It can clone/pull git repositories, build jars, build docker images.
 ```
-### Stopper script
+### Start script
+```
+Usage: ./stop.sh
+Options:
+    -h, --h         print help
+
+Automation script for Smart-Platform.
+It can start containers, delete old docker images and containers.
+```
+### Stop script
 ```
 Usage: ./stop.sh
 Options:
@@ -28,7 +37,7 @@ Options:
 Automation script for Smart-Platform.
 It can stop containers.
 ```
-### Updater script
+### Update script
 ```
 Usage: ./update.sh
 Options:

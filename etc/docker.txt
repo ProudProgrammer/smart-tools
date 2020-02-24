@@ -1,0 +1,28 @@
+# List images
+docker images
+docker image ls
+
+# List containers
+docker ps
+docker ps -a
+docker container ls
+
+# For build and run manually
+docker build -t edge-service . (in the same folder as Dockerfile)
+docker run -p 8080:8080 edge-service
+
+# Pass properties to Spring via Docker as environment variables
+docker run -p 8080:8080 -e swagger.title="Hello World" -e swagger.contact-name="Bob" edge-service:1.0-SNAPSHOT
+
+# Stop container
+docker container stop [CONTAINER ID]
+
+# Stop containers which image's tag are <none> (Stop preserves the container in the docker ps -a list)
+docker container stop $(docker ps | grep "$(docker images | grep "^<none>" | awk '{ print $3 }')" | awk '{ print $1 }')
+
+# Remove containers which image's tag are <none>
+docker container rm -f $(docker ps | grep "$(docker images | grep "^<none>" | awk '{ print $3 }')" | awk '{ print $1 }')
+
+# Remove all unused containers, networks, images
+docker system prune -f
+

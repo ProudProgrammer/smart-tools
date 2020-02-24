@@ -43,7 +43,7 @@ function init() {
   ELAPSED_TIME=$(("$SECONDS" - "$START_TIME"))
   ((SEC = ELAPSED_TIME % 60, ELAPSED_TIME /= 60, MIN = ELAPSED_TIME % 60, HRS = ELAPSED_TIME / 60))
   TIMESTAMP=$(printf "%02d:%02d:%02d" ${HRS} ${MIN} ${SEC})
-  echo -e "\n${COLOR_HEADER}Stopper script total time:${COLOR_RESET} ${TIMESTAMP}"
+  echo -e "\n${COLOR_HEADER}Stop script total time:${COLOR_RESET} ${TIMESTAMP}"
 }
 
 process_args "${@}"

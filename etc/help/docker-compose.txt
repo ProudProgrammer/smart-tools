@@ -1,0 +1,8 @@
+# Start compose file with name of docker-compose.yml
+docker-compose up
+
+# Start compose file with different name than docker-compose.yml
+docker-compose -f full-smart-platform.yml up
+
+# Stop compose file with different name than docker-compose.yml
+docker-compose -f full-smart-platform.yml down

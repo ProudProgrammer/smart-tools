@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  lottery-service:
+    image: lottery-service:1.0-SNAPSHOT
+    container_name: lottery-service
+    hostname: lottery-service
+    ports:
+      - "8081:8081"
+  edge-service:
+    image: edge-service:1.0-SNAPSHOT
+    container_name: edge-service
+    hostname: edge-service
+    ports:
+      - "8080:8080"
+    environment:
+      lottery.service.base.url: lottery-service:8081

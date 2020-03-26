@@ -26,3 +26,6 @@ docker container rm -f $(docker ps | grep "$(docker images | grep "^<none>" | aw
 # Remove all unused containers, networks, images
 docker system prune -f
 
+# Inspect container, eg. environment variables
+docker container inspect container-id
+

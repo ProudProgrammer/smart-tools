@@ -2,22 +2,25 @@
 #
 # Starter script for Smart Platform
 
+DEFAULT_PROFILE=true
+PROD_PROFILE=false
+
 COLOR_HEADER="\033[7;49;36m"
 COLOR_RESET="\033[0m"
 
 # 0 - project name
 # 1 - git repository
 # 2 - service port
-LOTTERY_SERVICE="lottery-service:1.0-SNAPSHOT;8081"
-EDGE_SERVICE="edge-service:1.0-SNAPSHOT;8080"
-
-cd ../../
-MAIN_DIR=$(pwd)
+# 3 - remote debug port
+# 4 - spring prod profile name
+LOTTERY_SERVICE="lottery-service:1.0-SNAPSHOT;8081;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006;5006;prod"
+EDGE_SERVICE="edge-service:1.0-SNAPSHOT;8080;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005;5005;prod"
 
 function print_help() {
-  echo "Usage: ./start.sh [-u | --update -t | --tests -d | --docker]"
+  echo "Usage: ./start.sh [-p | --prod]"
   echo "Options:"
-  echo "    -h, --h         print help"
+  echo "    -h, --help         print help"
+  echo "    -p, --prod         prod environment settings"
   echo ""
   echo "Automation script for Smart-Platform."
   echo "It can start containers, delete old docker images and containers."
@@ -27,6 +30,7 @@ function process_args() {
   while [[ ${#} -gt 0 ]]; do
     case "${1}" in
     -h | --help) print_help && exit 0 ;;
+    -p | --prod) PROD_PROFILE=true && DEFAULT_PROFILE=false ;;
     esac
     shift
   done
@@ -52,13 +56,26 @@ function clean_containers_and_images() {
 
 function start_containers() {
   echo -e "\n${COLOR_HEADER}Starting containers...${COLOR_RESET}"
-  LOTTERY_SERVICE_PORT=$(echo "${LOTTERY_SERVICE}" | cut -d ';' -f 2)
   LOTTERY_SERVICE_IMAGE=$(echo "${LOTTERY_SERVICE}" | cut -d ';' -f 1)
-  EDGE_SERVICE_PORT=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 2)
+  LOTTERY_SERVICE_PORT=$(echo "${LOTTERY_SERVICE}" | cut -d ';' -f 2)
+  LOTTERY_SERVICE_JAVA_ARGS=$(echo "${LOTTERY_SERVICE}" | cut -d ';' -f 3)
+  LOTTERY_SERVICE_DEBUG_PORT=$(echo "${LOTTERY_SERVICE}" | cut -d ';' -f 4)
+  LOTTERY_SERVICE_PROD_PROFILE_NAME=$(echo "${LOTTERY_SERVICE}" | cut -d ';' -f 5)
   EDGE_SERVICE_IMAGE=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 1)
+  EDGE_SERVICE_PORT=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 2)
+  EDGE_SERVICE_JAVA_ARGS=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 3)
+  EDGE_SERVICE_DEBUG_PORT=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 4)
+  EDGE_SERVICE_PROD_PROFILE_NAME=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 5)
   GATEWAY=$(docker network inspect bridge | jq -r '.[0].IPAM.Config | .[0].Gateway')
-  docker run -d -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" "$LOTTERY_SERVICE_IMAGE"
-  docker run -d -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" -e lottery.service.base.url="${GATEWAY}:${LOTTERY_SERVICE_PORT}" "$EDGE_SERVICE_IMAGE"
+  if [[ ${PROD_PROFILE} == true ]]; then
+    echo -e "Starting containers with prod profile..."
+    docker run -d -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" -e SPRING_PROFILES_ACTIVE="${LOTTERY_SERVICE_PROD_PROFILE_NAME}" "$LOTTERY_SERVICE_IMAGE"
+    docker run -d -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" -e SPRING_PROFILES_ACTIVE="${EDGE_SERVICE_PROD_PROFILE_NAME}" -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" "$EDGE_SERVICE_IMAGE"
+  elif [[ ${DEFAULT_PROFILE} == true ]]; then
+    echo -e "Starting containers with default profile..."
+    docker run -d -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" -p "${LOTTERY_SERVICE_DEBUG_PORT}:${LOTTERY_SERVICE_DEBUG_PORT}" -e JAVA_ARGS="${LOTTERY_SERVICE_JAVA_ARGS}" "$LOTTERY_SERVICE_IMAGE"
+    docker run -d -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" -p "${EDGE_SERVICE_DEBUG_PORT}:${EDGE_SERVICE_DEBUG_PORT}" -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" -e JAVA_ARGS="${EDGE_SERVICE_JAVA_ARGS}" "$EDGE_SERVICE_IMAGE"
+  fi
 }
 
 function init() {

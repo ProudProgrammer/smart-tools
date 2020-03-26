@@ -21,9 +21,10 @@ It can clone/pull git repositories, build jars, build docker images.
 ```
 ### Start script
 ```
-Usage: ./stop.sh
+Usage: ./start.sh [-p | --prod]
 Options:
     -h, --h         print help
+    -p, --prod      prod environment settings"
 
 Automation script for Smart-Platform.
 It can start containers, delete old docker images and containers.

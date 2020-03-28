@@ -7,6 +7,8 @@ services:
     ports:
       - "8081:8081"
       - "5006:5006"
+    volumes:
+      - ./logs/lottery-service-default/:/smart/share/lottery/logs/
     environment:
       - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
   edge-service:
@@ -16,6 +18,8 @@ services:
     ports:
       - "8080:8080"
       - "5005:5005"
+    volumes:
+      - ./logs/edge-service-default/:/smart/share/edge/logs/
     environment:
       - LOTTERY_SERVICE_BASE_URL=lottery-service:8081
       - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005

@@ -6,14 +6,18 @@ services:
     hostname: lottery-service
     ports:
       - "8081:8081"
+    volumes:
+      - ./logs/lottery-service-prod/:/smart/share/lottery/logs/
     environment:
-      spring.profiles.active: prod
+      - SPRING_PROFILES_ACTIVE=prod
   edge-service:
     image: edge-service:1.0-SNAPSHOT
     container_name: edge-service
     hostname: edge-service
     ports:
       - "8080:8080"
+    volumes:
+      - ./logs/edge-service-prod/:/smart/share/edge/logs/
     environment:
-      lottery.service.base.url: lottery-service:8081
-      spring.profiles.active: prod
+      - LOTTERY_SERVICE_BASE_URL=lottery-service:8081
+      - SPRING_PROFILES_ACTIVE=prod

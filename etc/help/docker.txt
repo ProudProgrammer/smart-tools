@@ -15,7 +15,10 @@ docker run -p 8080:8080 edge-service
 docker run -p 8080:8080 -e swagger.title="Hello World" -e swagger.contact-name="Bob" edge-service:1.0-SNAPSHOT
 
 # Stop container
-docker container stop [CONTAINER ID]
+docker container stop CONTAINER
+
+# Remove stopped containers
+docker container prune
 
 # Stop containers which image's tag are <none> (Stop preserves the container in the docker ps -a list)
 docker container stop $(docker ps | grep "$(docker images | grep "^<none>" | awk '{ print $3 }')" | awk '{ print $1 }')

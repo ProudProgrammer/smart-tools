@@ -69,12 +69,32 @@ function start_containers() {
   GATEWAY=$(docker network inspect bridge | jq -r '.[0].IPAM.Config | .[0].Gateway')
   if [[ ${PROD_PROFILE} == true ]]; then
     echo -e "Starting containers with prod profile..."
-    docker run -d -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" -e SPRING_PROFILES_ACTIVE="${LOTTERY_SERVICE_PROD_PROFILE_NAME}" "$LOTTERY_SERVICE_IMAGE"
-    docker run -d -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" -e SPRING_PROFILES_ACTIVE="${EDGE_SERVICE_PROD_PROFILE_NAME}" -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" "$EDGE_SERVICE_IMAGE"
+    mkdir -p "$(pwd)/logs/lottery-service-prod"
+    mkdir -p "$(pwd)/logs/edge-service-prod"
+    docker run -d \
+    -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" \
+    -v "$(pwd)/logs/lottery-service-prod:/smart/share/lottery/logs" \
+    -e SPRING_PROFILES_ACTIVE="${LOTTERY_SERVICE_PROD_PROFILE_NAME}" \
+    "$LOTTERY_SERVICE_IMAGE"
+    docker run -d \
+    -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" \
+    -v "$(pwd)/logs/edge-service-prod:/smart/share/edge/logs" \
+    -e SPRING_PROFILES_ACTIVE="${EDGE_SERVICE_PROD_PROFILE_NAME}" -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" \
+    "$EDGE_SERVICE_IMAGE"
   elif [[ ${DEFAULT_PROFILE} == true ]]; then
     echo -e "Starting containers with default profile..."
-    docker run -d -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" -p "${LOTTERY_SERVICE_DEBUG_PORT}:${LOTTERY_SERVICE_DEBUG_PORT}" -e JAVA_ARGS="${LOTTERY_SERVICE_JAVA_ARGS}" "$LOTTERY_SERVICE_IMAGE"
-    docker run -d -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" -p "${EDGE_SERVICE_DEBUG_PORT}:${EDGE_SERVICE_DEBUG_PORT}" -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" -e JAVA_ARGS="${EDGE_SERVICE_JAVA_ARGS}" "$EDGE_SERVICE_IMAGE"
+    mkdir -p "$(pwd)/logs/lottery-service-default"
+    mkdir -p "$(pwd)/logs/edge-service-default"
+    docker run -d \
+    -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" -p "${LOTTERY_SERVICE_DEBUG_PORT}:${LOTTERY_SERVICE_DEBUG_PORT}" \
+    -v "$(pwd)/logs/lottery-service-default:/smart/share/lottery/logs" \
+    -e JAVA_ARGS="${LOTTERY_SERVICE_JAVA_ARGS}" \
+    "$LOTTERY_SERVICE_IMAGE"
+    docker run -d \
+    -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" -p "${EDGE_SERVICE_DEBUG_PORT}:${EDGE_SERVICE_DEBUG_PORT}" \
+    -v "$(pwd)/logs/edge-service-default:/smart/share/edge/logs" \
+    -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" -e JAVA_ARGS="${EDGE_SERVICE_JAVA_ARGS}" \
+    "$EDGE_SERVICE_IMAGE"
   fi
 }
 

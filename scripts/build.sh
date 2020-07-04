@@ -16,10 +16,11 @@ LOGGING_FILTER="smart-logging-filter;https://github.com/ProudProgrammer/smart-lo
 LOTTERY_SERVICE_CLIENT="smart-lottery-service-client;https://github.com/ProudProgrammer/smart-lottery-service-client.git"
 LOTTERY_SERVICE="smart-lottery-service;https://github.com/ProudProgrammer/smart-lottery-service.git"
 EDGE_SERVICE="smart-edge-service;https://github.com/ProudProgrammer/smart-edge-service.git"
+SIMULATOR="smart-simulator;https://github.com/ProudProgrammer/smart-simulator.git"
 UI="smart-ui;https://github.com/ProudProgrammer/smart-ui.git"
 TOOLS="smart-tools"
 
-PROJECTS=("$LOGGING_FILTER" "$LOTTERY_SERVICE_CLIENT" "$LOTTERY_SERVICE" "$EDGE_SERVICE" "$UI")
+PROJECTS=("$LOGGING_FILTER" "$LOTTERY_SERVICE_CLIENT" "$LOTTERY_SERVICE" "$EDGE_SERVICE" "$SIMULATOR" "$UI")
 
 cd ../../
 MAIN_DIR=$(pwd)
@@ -117,10 +118,12 @@ function set_maven_profiles_active() {
 function build_projects() {
   IFS=';'
   for PROJECT in "${PROJECTS[@]}"; do
-    read -ra PROJECT_AS_ARRAY <<<"$PROJECT"
-    echo -e "\n${COLOR_HEADER}Building ${PROJECT_AS_ARRAY[0]}...${COLOR_RESET}"
-    cd "$MAIN_DIR/${PROJECT_AS_ARRAY[0]}" || exit
-    mvn clean install ${MAVEN_PROFILES_ACTIVE}
+    if [[ ${PROJECT} != "UI" ]]; then
+      read -ra PROJECT_AS_ARRAY <<<"$PROJECT"
+      echo -e "\n${COLOR_HEADER}Building ${PROJECT_AS_ARRAY[0]}...${COLOR_RESET}"
+      cd "$MAIN_DIR/${PROJECT_AS_ARRAY[0]}" || exit
+      mvn clean install ${MAVEN_PROFILES_ACTIVE}
+    fi
   done
   IFS=' '
 }

@@ -15,6 +15,7 @@ COLOR_RESET="\033[0m"
 # 4 - spring prod profile name
 LOTTERY_SERVICE="lottery-service:1.0-SNAPSHOT;8081;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006;5006;prod"
 EDGE_SERVICE="edge-service:1.0-SNAPSHOT;8080;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005;5005;prod"
+UI="smart-ui"
 
 function print_help() {
   echo "Usage: ./start.sh [-p | --prod]"
@@ -98,11 +99,18 @@ function start_containers() {
   fi
 }
 
+function start_ui {
+  cd ../../
+  cd "$UI"
+  start index.html
+}
+
 function init() {
   START_TIME=$SECONDS
   check_dependencies
   clean_containers_and_images
   start_containers
+  start_ui
   ELAPSED_TIME=$(("$SECONDS" - "$START_TIME"))
   ((SEC = ELAPSED_TIME % 60, ELAPSED_TIME /= 60, MIN = ELAPSED_TIME % 60, HRS = ELAPSED_TIME / 60))
   TIMESTAMP=$(printf "%02d:%02d:%02d" ${HRS} ${MIN} ${SEC})

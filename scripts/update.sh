@@ -10,11 +10,12 @@ COLOR_RESET="\033[0m"
 # 2 - service port
 LOGGING_FILTER="smart-logging-filter;https://github.com/ProudProgrammer/smart-logging-filter.git"
 LOTTERY_SERVICE_CLIENT="smart-lottery-service-client;https://github.com/ProudProgrammer/smart-lottery-service-client.git"
-LOTTERY_SERVICE="smart-lottery-service;https://github.com/ProudProgrammer/smart-lottery-service.git;8081"
-EDGE_SERVICE="smart-edge-service;https://github.com/ProudProgrammer/smart-edge-service.git;8080"
+LOTTERY_SERVICE="smart-lottery-service;https://github.com/ProudProgrammer/smart-lottery-service.git"
+EDGE_SERVICE="smart-edge-service;https://github.com/ProudProgrammer/smart-edge-service.git"
+UI="smart-ui;https://github.com/ProudProgrammer/smart-ui.git"
 TOOLS="smart-tools"
 
-PROJECTS=("$LOGGING_FILTER" "$LOTTERY_SERVICE_CLIENT" "$LOTTERY_SERVICE" "$EDGE_SERVICE")
+PROJECTS=("$LOGGING_FILTER" "$LOTTERY_SERVICE_CLIENT" "$LOTTERY_SERVICE" "$EDGE_SERVICE" "$UI")
 
 cd ../../
 MAIN_DIR=$(pwd)

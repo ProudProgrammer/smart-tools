@@ -33,7 +33,7 @@ function check_dependencies() {
 
 function stop_containers() {
   echo -e "\n${COLOR_HEADER}Stopping docker containers...${COLOR_RESET}"
-  docker container stop $(docker ps | grep "[edge|lottery]" | awk '{ print $1 }')
+  docker container stop $(docker ps | grep "[edge|lottery|smart]" | awk '{ print $1 }')
   docker system prune -f
 }
 

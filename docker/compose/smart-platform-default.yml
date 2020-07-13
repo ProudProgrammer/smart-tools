@@ -1,5 +1,10 @@
 version: '3.7'
 services:
+  smart-ui:
+    image: smart-ui:1.0.0
+    container_name: smart-ui
+    ports:
+      - "8001:8001"
   lottery-service:
     image: lottery-service:1.0-SNAPSHOT
     container_name: lottery-service

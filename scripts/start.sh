@@ -15,7 +15,7 @@ COLOR_RESET="\033[0m"
 # 4 - spring prod profile name
 LOTTERY_SERVICE="lottery-service:1.0-SNAPSHOT;8081;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006;5006;prod"
 EDGE_SERVICE="edge-service:1.0-SNAPSHOT;8080;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005;5005;prod"
-UI="smart-ui"
+UI="smart-ui:1.0.0;8001"
 
 function print_help() {
   echo "Usage: ./start.sh [-p | --prod]"
@@ -68,8 +68,12 @@ function start_containers() {
   EDGE_SERVICE_DEBUG_PORT=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 4)
   EDGE_SERVICE_PROD_PROFILE_NAME=$(echo "${EDGE_SERVICE}" | cut -d ';' -f 5)
   GATEWAY=$(docker network inspect bridge | jq -r '.[0].IPAM.Config | .[0].Gateway')
+  UI_IMAGE=$(echo "${UI}" | cut -d ';' -f 1)
+  UI_PORT=$(echo "${UI}" | cut -d ';' -f 2)
+  echo -e "Starting smart-ui container..."
+  docker run -d -p "${UI_PORT}:${UI_PORT}" "$UI_IMAGE"
   if [[ ${PROD_PROFILE} == true ]]; then
-    echo -e "Starting containers with prod profile..."
+    echo -e "Starting service containers with prod profile..."
     mkdir -p "$(pwd)/logs/lottery-service-prod"
     mkdir -p "$(pwd)/logs/edge-service-prod"
     docker run -d \
@@ -83,7 +87,7 @@ function start_containers() {
     -e SPRING_PROFILES_ACTIVE="${EDGE_SERVICE_PROD_PROFILE_NAME}" -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" \
     "$EDGE_SERVICE_IMAGE"
   elif [[ ${DEFAULT_PROFILE} == true ]]; then
-    echo -e "Starting containers with default profile..."
+    echo -e "Starting service containers with default profile..."
     mkdir -p "$(pwd)/logs/lottery-service-default"
     mkdir -p "$(pwd)/logs/edge-service-default"
     docker run -d \
@@ -100,9 +104,7 @@ function start_containers() {
 }
 
 function start_ui {
-  cd ../../
-  cd "$UI"
-  start index.html
+  start http://localhost:8001
 }
 
 function init() {

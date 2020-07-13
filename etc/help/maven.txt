@@ -1,0 +1,19 @@
+# Generating source in the current directory
+mvn source:jar
+
+* Generating source in the current directory and installing it to local maven repo
+mvn source:jar install
+
+# Generate javadoc in the current project's target folder
+mvn javadoc:jar
+
+# Dependency tree (in stdout and in file)
+mvn dependency:tree
+mvn dependency:tree > dependency-tree.txt
+
+* Building without exact module
+mvn clean install -pl !integration-test
+
+# Versioning (Major.Minor.Build)
+63.0.130
+64.0.131

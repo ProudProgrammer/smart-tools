@@ -1,0 +1,7 @@
+# Default Swagger ui url
+http://localhost:8081/swagger-ui.html
+
+# Performing request with Curl
+curl -i -H "Consumer-Name:Bob" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83971" -H "Locale:Hu-hu" http://localhost:8081/lottery/five-out-of-ninety/numbers
+curl -i -H "Consumer-Name:Alice" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83972" -H "Locale:Hu-hu" http://localhost:8081/lottery/six-out-of-forty-five/numbers
+curl -i -H "Consumer-Name:Foo" -H "Request-Id:e8a3044c-540e-404c-8ed4-8b521ea83973" -H "Locale:Hu-hu" http://localhost:8081/lottery/scandinavian/numbers

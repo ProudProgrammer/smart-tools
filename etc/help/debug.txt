@@ -1,0 +1,2 @@
+# For listening on debug port eg. 5006 (IDE eg. IntelliJ IDEA can attach remotely)
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -jar lottery-service-release-1.0-SNAPSHOT.jar

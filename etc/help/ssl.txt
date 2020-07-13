@@ -1,0 +1,5 @@
+# copy certificate (.pem or .cert) from browser (firefox or chrome)
+# run as administrator from C:\Program Files\Java\jdk-11.0.5\bin
+keytool -trustcacerts -keystore "C:\Program Files\Java\jdk-11.0.5\lib\security\cacerts" -storepass changeit -importcert -alias szerencsejatek -file "D:\Temp\bet-szerencsejatek-hu.pem"
+keytool -list -keystore "C:\Program Files\Java\jdk-11.0.5\lib\security\cacerts" -storepass changeit
+keytool -delete -alias szerencsejatek -keystore "C:\Program Files\Java\jdk-11.0.5\lib\security\cacerts" -storepass changeit

@@ -120,14 +120,14 @@ function build_projects() {
   IFS=';'
   for PROJECT in "${PROJECTS[@]}"; do
     read -ra PROJECT_AS_ARRAY <<<"$PROJECT"
-    if [[ "${PROJECT_AS_ARRAY[0]}" != "smart-ui"  ]] & [[ "${PROJECT_AS_ARRAY[0]}" != "smart-ui-angularjs" ]]; then
+    if [[ "${PROJECT_AS_ARRAY[0]}" != "smart-ui"  ]] && [[ "${PROJECT_AS_ARRAY[0]}" != "smart-ui-angularjs" ]]; then
       echo -e "\n${COLOR_HEADER}Building ${PROJECT_AS_ARRAY[0]}...${COLOR_RESET}"
       cd "$MAIN_DIR/${PROJECT_AS_ARRAY[0]}" || exit
       mvn clean install ${MAVEN_PROFILES_ACTIVE}
     elif [[ ${DOCKER} == true ]]; then
       echo -e "\n${COLOR_HEADER}Building ${PROJECT_AS_ARRAY[0]}...${COLOR_RESET}"
       cd "$MAIN_DIR/${PROJECT_AS_ARRAY[0]}" || exit
-      docker build -t smart-ui:1.0.0 .
+      docker build -t "${PROJECT_AS_ARRAY[0]}:1.0.0" .
     fi
   done
   IFS=' '

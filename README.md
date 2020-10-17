@@ -9,7 +9,7 @@ Tools for Smart Platform
 ```
 ### Build script
 ```
-Usage: ./start.sh [-u | --update -t | --tests -d | --docker]
+Usage: ./build.sh [-u | --update -t | --tests -d | --docker]
 Options:
     -h, --h         print help
     -u, --update    update git repositories

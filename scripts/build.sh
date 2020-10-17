@@ -29,7 +29,7 @@ MAIN_DIR=$(pwd)
 MAVEN_PROFILES_ACTIVE=""
 
 function print_help() {
-  echo "Usage: ./start.sh [-u | --update -t | --tests -d | --docker]"
+  echo "Usage: ./build.sh [-u | --update -t | --tests -d | --docker]"
   echo "Options:"
   echo "    -h, --h         print help"
   echo "    -u, --update    update git repositories"

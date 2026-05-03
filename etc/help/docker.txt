@@ -9,8 +9,11 @@ docker container ls
 
 # For build and run manually
 docker build -t lottery-service:1.0-SNAPSHOT . (in the same folder as Dockerfile)
-docker run -p 8081:8081 lottery-service
-docker run -p 8081:8081 -v /logs:/app/logs lottery-service
+docker run -p 8081:8081 lottery-service:1.0-SNAPSHOT
+docker run -p 8081:8081 -v /logs:/app/logs lottery-service:1.0-SNAPSHOT
+
+# Named volumes
+docker run -p 8081:8081 -v lottery-service-logs:/app/logs lottery-service:1.0-SNAPSHOT
 
 # Pass properties to Spring via Docker as environment variables
 docker run -p 8081:8081 -e swagger.title="Hello World" -e swagger.contact-name="Bob" lottery-service:1.0-SNAPSHOT

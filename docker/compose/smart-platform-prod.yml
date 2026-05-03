@@ -1,6 +1,6 @@
 services:
   lottery-service:
-    image: lottery-service:latest
+    image: lottery-service:1.0-SNAPSHOT
     container_name: lottery-service
     hostname: lottery-service
     ports:
@@ -10,7 +10,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
   edge-service:
-    image: edge-service:latest
+    image: edge-service:1.0-SNAPSHOT
     container_name: edge-service
     hostname: edge-service
     ports:

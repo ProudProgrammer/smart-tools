@@ -8,7 +8,7 @@ docker ps -a
 docker container ls
 
 # For build and run manually
-docker build -t lottery-service . (in the same folder as Dockerfile)
+docker build -t lottery-service:1.0-SNAPSHOT . (in the same folder as Dockerfile)
 docker run -p 8081:8081 lottery-service
 docker run -p 8081:8081 -v /logs:/app/logs lottery-service
 

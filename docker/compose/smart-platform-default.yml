@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   smart-ui:
     image: smart-ui:1.0.0
@@ -6,7 +5,7 @@ services:
     ports:
       - "8001:8001"
   lottery-service:
-    image: lottery-service:latest
+    image: lottery-service:1.0-SNAPSHOT
     container_name: lottery-service
     hostname: lottery-service
     ports:
@@ -17,7 +16,7 @@ services:
     environment:
       - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
   edge-service:
-    image: edge-service:latest
+    image: edge-service:1.0-SNAPSHOT
     container_name: edge-service
     hostname: edge-service
     ports:

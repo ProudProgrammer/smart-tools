@@ -1,0 +1,29 @@
+services:
+  smart-ui-angularjs:
+    image: smart-ui-angularjs:1.0.0
+    container_name: smart-ui-angularjs
+    ports:
+      - "8002:8002"
+  lottery-service:
+    image: lottery-service:1.0-SNAPSHOT
+    container_name: lottery-service
+    hostname: lottery-service
+    ports:
+      - "8081:8081"
+      - "5006:5006"
+    volumes:
+      - ./logs/lottery-service-default/:/app/logs/
+    environment:
+      - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
+  edge-service:
+    image: edge-service:1.0-SNAPSHOT
+    container_name: edge-service
+    hostname: edge-service
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - ./logs/edge-service-default/:/app/logs/
+    environment:
+      - LOTTERY_SERVICE_BASE_URL=lottery-service:8081
+      - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005

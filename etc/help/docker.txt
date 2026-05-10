@@ -38,11 +38,10 @@ docker container rm -f $(docker ps | grep "$(docker images | grep "^<none>" | aw
 docker system prune -f
 
 # Inspect container, eg. environment variables
-docker container inspect CONTAINER ID
+docker container inspect CONTAINER_ID
 
 # Run command inside container
-docker container exec CONTAINER COMMAND
+docker container exec CONTAINER_ID COMMAND
 
 # Run command inside container (attach on the log file with tail)
-docker container exec CONTAINER tail -F logs/lottery-service.log
-
+docker container exec CONTAINER_ID tail -F logs/lottery-service.log

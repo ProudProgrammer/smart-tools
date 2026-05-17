@@ -47,5 +47,6 @@ docker container exec CONTAINER_ID COMMAND
 docker container exec CONTAINER_ID tail -F logs/lottery-service.log
 
 # Networking
+docker network create smart-network
 docker run -p 8080:8080 -d --net smart-network --name edge-service -e LOTTERY_SERVICE_BASE_URL=lottery-service:8081 edge-service:1.0-SNAPSHOT
 docker run -p 8081:8081 -d --net smart-network --name lottery-service lottery-service:1.0-SNAPSHOT

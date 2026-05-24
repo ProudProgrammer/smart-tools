@@ -13,8 +13,8 @@ COLOR_RESET="\033[0m"
 # 2 - service port
 # 3 - remote debug port
 # 4 - spring prod profile name
-LOTTERY_SERVICE="lottery-service:1.0-SNAPSHOT;8081;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006;5006;prod"
-EDGE_SERVICE="edge-service:1.0-SNAPSHOT;8080;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005;5005;prod"
+LOTTERY_SERVICE="smart-lottery-service:1.0-SNAPSHOT;8081;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006;5006;prod"
+EDGE_SERVICE="smart-edge-service:1.0-SNAPSHOT;8080;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005;5005;prod"
 UI="smart-ui:1.0.0;8001"
 
 function print_help() {
@@ -76,24 +76,24 @@ function start_containers() {
     echo -e "Starting service containers with prod profile..."
     docker run -d \
     -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" \
-    -v "lottery-service-logs-prod:/app/logs" \
+    -v "smart-lottery-service-logs-prod:/app/logs" \
     -e SPRING_PROFILES_ACTIVE="${LOTTERY_SERVICE_PROD_PROFILE_NAME}" \
     "$LOTTERY_SERVICE_IMAGE"
     docker run -d \
     -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" \
-    -v "edge-service-logs-prod:/app/logs" \
+    -v "smart-edge-service-logs-prod:/app/logs" \
     -e SPRING_PROFILES_ACTIVE="${EDGE_SERVICE_PROD_PROFILE_NAME}" -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" \
     "$EDGE_SERVICE_IMAGE"
   elif [[ ${DEFAULT_PROFILE} == true ]]; then
     echo -e "Starting service containers with default profile..."
     docker run -d \
     -p "${LOTTERY_SERVICE_PORT}:${LOTTERY_SERVICE_PORT}" -p "${LOTTERY_SERVICE_DEBUG_PORT}:${LOTTERY_SERVICE_DEBUG_PORT}" \
-    -v "lottery-service-logs-default:/app/logs" \
+    -v "smart-lottery-service-logs-default:/app/logs" \
     -e JAVA_ARGS="${LOTTERY_SERVICE_JAVA_ARGS}" \
     "$LOTTERY_SERVICE_IMAGE"
     docker run -d \
     -p "${EDGE_SERVICE_PORT}:${EDGE_SERVICE_PORT}" -p "${EDGE_SERVICE_DEBUG_PORT}:${EDGE_SERVICE_DEBUG_PORT}" \
-    -v "edge-service-logs-default:/app/logs" \
+    -v "smart-edge-service-logs-default:/app/logs" \
     -e LOTTERY_SERVICE_BASE_URL="${GATEWAY}:${LOTTERY_SERVICE_PORT}" -e JAVA_ARGS="${EDGE_SERVICE_JAVA_ARGS}" \
     "$EDGE_SERVICE_IMAGE"
   fi

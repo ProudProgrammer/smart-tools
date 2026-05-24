@@ -5,25 +5,25 @@ services:
     ports:
       - "8002:8002"
   lottery-service:
-    image: lottery-service:1.0-SNAPSHOT
-    container_name: lottery-service
-    hostname: lottery-service
+    image: smart-lottery-service:1.0-SNAPSHOT
+    container_name: smart-lottery-service
+    hostname: smart-lottery-service
     ports:
       - "8081:8081"
       - "5006:5006"
     volumes:
-      - ./logs/lottery-service-default/:/app/logs/
+      - ./logs/smart-lottery-service-default/:/app/logs/
     environment:
       - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
   edge-service:
-    image: edge-service:1.0-SNAPSHOT
-    container_name: edge-service
-    hostname: edge-service
+    image: smart-edge-service:1.0-SNAPSHOT
+    container_name: smart-edge-service
+    hostname: smart-edge-service
     ports:
       - "8080:8080"
       - "5005:5005"
     volumes:
-      - ./logs/edge-service-default/:/app/logs/
+      - ./logs/smart-edge-service-default/:/app/logs/
     environment:
-      - LOTTERY_SERVICE_BASE_URL=lottery-service:8081
+      - LOTTERY_SERVICE_BASE_URL=smart-lottery-service:8081
       - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005

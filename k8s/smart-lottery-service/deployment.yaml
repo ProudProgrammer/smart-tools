@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-lottery-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smart-lottery-service
+  template:
+    metadata:
+      labels:
+        app: smart-lottery-service
+    spec:
+      containers:
+        - name: smart-lottery-service
+          image: smart-lottery-service:1.0-SNAPSHOT
+          imagePullPolicy: Never

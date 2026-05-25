@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-edge-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smart-edge-service
+  template:
+    metadata:
+      labels:
+        app: smart-edge-service
+    spec:
+      containers:
+        - name: smart-edge-service
+          image: smart-edge-service:1.0-SNAPSHOT
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JAVA_ARGS
+              value: "-Xms256m -Xmx512m -XX:+UseContainerSupport"
+            - name: LOTTERY_SERVICE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: smart-platform-configmap
+                  key: smart-lottery-service-url

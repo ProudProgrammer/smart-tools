@@ -16,3 +16,8 @@ spec:
         - name: smart-lottery-service
           image: smart-lottery-service:1.0-SNAPSHOT
           imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          env:
+            - name: JAVA_ARGS
+              value: "-Xms256m -Xmx512m -XX:+UseContainerSupport"

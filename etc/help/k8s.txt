@@ -1,21 +1,17 @@
-# Load Image into Minikube
-minikube image load smart-lottery-service:1.0-SNAPSHOT
-
-# List Minikube Images
-minikube image ls
-
 # Create Deployment
 kubectl create deployment smart-lottery-service-deployment --image=smart-lottery-service:1.0-SNAPSHOT
-kubectl apply -f deployment.yaml
+kubectl apply -f smart-lottery-service-deployment.yaml
 
 # Delete Deployment
 kubectl delete deployment smart-lottery-service-deployment
 
 # Get Deployments
 kubectl get deployments
+kubectl get deployment smart-lottery-service-deployment -o yaml
 
 # Get Pods
 kubectl get pods
+kubectl get pods -o wide
 
 # Describe Pod
 kubectl describe pod smart-lottery-service-deployment-6fcf7bbc84-j46pv
@@ -27,14 +23,23 @@ kubectl logs smart-lottery-service-deployment-6fcf7bbc84-j46pv
 kubectl exec -it smart-lottery-service-deployment-6fcf7bbc84-j46pv -- bin/bash
 kubectl exec -it smart-lottery-service-deployment-6fcf7bbc84-j46pv -- sh
 
-# Create/Expose NodePort Service for Deployment
+# Create/Expose NodePort Service for Deployment to reach Pod from outside the Cluster
 kubectl expose deployment smart-lottery-service-deployment --type=NodePort --port=8081 --target-port=8081
+
+# Create NodePort Service to reach Pod from outside the Cluster
+kubectl apply -f smart-lottery-service-service.yaml
 
 # Get Services
 kubectl get services
 
+# Describe Service
+kubectl describe service smart-lottery-service-service
+
 # Get External URL for Deployment
 minikube service smart-lottery-service-deployment  --url
+minikube service smart-lottery-service-service
+minikube service smart-edge-service-service
+minikube service smart-lottery-service-service --url
 
 # Delete Service
 kubectl delete service smart-lottery-service-deployment
@@ -43,3 +48,10 @@ kubectl delete svc smart-lottery-service-deployment
 # Port-Forwarding
 kubectl port-forward deployment/smart-lottery-service-deployment 8081:8081
 kubectl port-forward pod/smart-lottery-service-deployment-6fcf7bbc84-j46pv 8081:8081
+
+# Get All
+kubectl get all
+kubectl get all -o wide
+
+# Deleet All
+kubectl delete all --all

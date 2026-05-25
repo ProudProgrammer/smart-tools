@@ -1,0 +1,24 @@
+# Start Minikube
+PS C:\> minikube start
+PS C:\> minikube start --driver=docker --memory=4096 --cpus=2
+
+# Minikube Purge
+PS C:\> minikube delete --all --purge
+Remove-Item -Recurse -Force "$env:USERPROFILE\.minikube"
+Remove-Item -Recurse -Force "$env:USERPROFILE\.kube"
+
+# Minikube Status
+PS C:\> minikube status
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+# Load Image into Minikube
+PS C:\> minikube image load smart-lottery-service:1.0-SNAPSHOT
+PS C:\> minikube image load smart-edge-service:1.0-SNAPSHOT
+
+# List Minikube Images
+PS C:\> minikube image ls

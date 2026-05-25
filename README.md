@@ -64,13 +64,13 @@ Applied software development techniques:
 ![Swagger](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/swagger.png)
 
 ### Kubernetes Dashboard for Smart Platform
-![K8s Dashboard Workloads 1](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/screenshots/k8s-dashboard-workloads-1.png)
+![K8s Dashboard Workloads 1](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k8s-dashboard-workloads-1.png)
 
-![K8s Dashboard Workloads 2](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/screenshots/k8s-dashboard-workloads-2.png)
+![K8s Dashboard Workloads 2](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k8s-dashboard-workloads-2.png)
 
-![K8s Dashboard Nodes](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/screenshots/k8s-dashboard-nodes.png)
+![K8s Dashboard Nodes](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k8s-dashboard-nodes.png)
 
 ### K9s Terminal-Based Interface for Kubernetes of Smart Platform
-![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/screenshots/k9s-pods.png.png)
+![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k9s-pods.png)
 
-![K9s Logs](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/screenshots/k9s-logs.png.png)
+![K9s Logs](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k9s-logs.png)

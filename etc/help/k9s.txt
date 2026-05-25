@@ -1,0 +1,5 @@
+# Install on Windows
+PS C:\> winget install derailed.k9s
+
+# Start
+PS C:\> k9s

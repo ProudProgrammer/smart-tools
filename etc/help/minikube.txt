@@ -22,3 +22,9 @@ PS C:\> minikube image load smart-edge-service:1.0-SNAPSHOT
 
 # List Minikube Images
 PS C:\> minikube image ls
+
+# Kubernetes Dashboard
+PS C:\> minikube dashboard
+
+# Adding Metrics to Dashboard
+PS C:\> minikube addons enable metrics-server

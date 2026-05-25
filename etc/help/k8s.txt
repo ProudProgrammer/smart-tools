@@ -11,6 +11,8 @@ kubectl get deployment smart-lottery-service-deployment -o yaml
 
 # Get Pods
 kubectl get pods
+kubectl get pods --all-namespaces
+kubectl get pods -n smart-platform
 kubectl get pods -o wide
 
 # Describe Pod
@@ -48,10 +50,21 @@ kubectl delete svc smart-lottery-service-deployment
 # Port-Forwarding
 kubectl port-forward deployment/smart-lottery-service-deployment 8081:8081
 kubectl port-forward pod/smart-lottery-service-deployment-6fcf7bbc84-j46pv 8081:8081
+kubectl port-forward service/smart-edge-service-service 8080:8080 -n smart-platform
+kubectl port-forward service/smart-lottery-service-service 8081:8081 -n smart-platform
+kubectl port-forward service/smart-ui-service 8001:8001 -n smart-platform
 
 # Get All
 kubectl get all
+kubectl get all --all-namespaces
 kubectl get all -o wide
 
-# Deleet All
+# Delete All
 kubectl delete all --all
+kubectl delete configmap smart-platform-configmap
+
+# Create Namespace
+kubectl create namespace smart-platform
+
+# Set Default Namespace
+kubectl config set-context --current --namespace=smart-platform

@@ -1,0 +1,15 @@
+# Create
+kubectl apply -f .\config\smart-platform-namespace.yaml
+kubectl apply -f .\config\smart-platform-configmap.yaml
+kubectl apply -f .\smart-lottery-service\
+kubectl apply -f .\smart-edge-service\
+kubectl apply -f .\smart-ui\
+
+# Port-Forward
+kubectl port-forward service/smart-edge-service-service 8080:8080 -n smart-platform
+kubectl port-forward service/smart-lottery-service-service 8081:8081 -n smart-platform
+kubectl port-forward service/smart-ui-service 8001:8001 -n smart-platform
+
+# Dashboard
+minikube dashboard
+k9s

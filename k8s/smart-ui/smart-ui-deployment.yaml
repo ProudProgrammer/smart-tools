@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-ui-deployment
+  namespace: smart-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: smart-ui
+  template:
+    metadata:
+      labels:
+        app: smart-ui
+    spec:
+      containers:
+        - name: smart-ui
+          image: smart-ui:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8001

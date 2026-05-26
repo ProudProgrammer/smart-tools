@@ -5,3 +5,5 @@ metadata:
   namespace: smart-platform
 data:
   smart-lottery-service-url: smart-lottery-service-service:8081
+  smart-edge-service-external-url: http://smart-egde-service.com
+  smart-lottery-service-external-url: http://smart-lottery-service.com

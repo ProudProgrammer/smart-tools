@@ -70,14 +70,16 @@ NAME                CLASS   HOSTS                          ADDRESS          PORT
 dashboard-ingress   nginx   smart-platform-dashboard.com   172.25.166.205   80      62s
 
 PS D:\GitRepos [backup]\smart-tools\k8s> kubectl get ingress -n smart-platform
-NAME                     CLASS   HOSTS                ADDRESS          PORTS   AGE
-smart-platform-ingress   nginx   smart-platform.com   172.25.166.205   80      56s
+NAME                     CLASS   HOSTS                                                                 ADDRESS          PORTS   AGE
+smart-platform-ingress   nginx   smart-platform.com,smart-egde-service.com,smart-lottery-service.com   172.25.166.205   80      3h14m
 ```
 ### Add records to Hosts file (Do not forget to save it)
 Example (C:\Windows\System32\drivers\etc\hosts):
 ```
 172.25.166.205 smart-platform-dashboard.com
 172.25.166.205 smart-platform.com
+172.25.166.205 smart-egde-service.com
+172.25.166.205 smart-lottery-service.com
 ```
 ### Open with Browser
 http://smart-platform-dashboard.com/<br>

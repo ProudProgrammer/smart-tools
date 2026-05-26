@@ -19,3 +19,14 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8001
+          env:
+            - name: EDGE_SERVICE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: smart-platform-configmap
+                  key: smart-edge-service-external-url
+            - name: LOTTERY_SERVICE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: smart-platform-configmap
+                  key: smart-lottery-service-external-url

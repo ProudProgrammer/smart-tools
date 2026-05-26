@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: smart-platform-ingress
+  namespace: smart-platform
+spec:
+  rules:
+    - host: smart-platform.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: smart-ui-service
+                port:
+                  number: 8001
+    - host: smart-egde-service.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: smart-edge-service-service
+                port:
+                  number: 8080
+    - host: smart-lottery-service.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: smart-lottery-service-service
+                port:
+                  number: 8081

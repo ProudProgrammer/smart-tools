@@ -12,7 +12,7 @@ services:
       - "8081:8081"
       - "5006:5006"
     volumes:
-      - ./logs/smart-lottery-service-default/:/app/logs/
+      - D:/Temp/smart-platform-logs/smart-lottery-service-logs-dc/:/app/logs/
     environment:
       - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
   edge-service:
@@ -23,7 +23,7 @@ services:
       - "8080:8080"
       - "5005:5005"
     volumes:
-      - ./logs/smart-edge-service-default/:/app/logs/
+      - D:/Temp/smart-platform-logs/smart-edge-service-logs-dc/:/app/logs/
     environment:
       - LOTTERY_SERVICE_BASE_URL=smart-lottery-service:8081
       - JAVA_ARGS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005

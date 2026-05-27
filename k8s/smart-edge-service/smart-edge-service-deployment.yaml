@@ -27,3 +27,10 @@ spec:
                 configMapKeyRef:
                   name: smart-platform-configmap
                   key: smart-lottery-service-url
+          volumeMounts:
+            - name: logs-storage
+              mountPath: /app/logs
+      volumes:
+        - name: logs-storage
+          persistentVolumeClaim:
+            claimName: smart-edge-service-logs-pvc

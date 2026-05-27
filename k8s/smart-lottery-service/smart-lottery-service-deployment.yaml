@@ -22,3 +22,10 @@ spec:
           env:
             - name: JAVA_ARGS
               value: "-Xms256m -Xmx512m -XX:+UseContainerSupport"
+          volumeMounts:
+            - name: logs-storage
+              mountPath: /app/logs
+      volumes:
+        - name: logs-storage
+          persistentVolumeClaim:
+            claimName: smart-lottery-service-logs-pvc

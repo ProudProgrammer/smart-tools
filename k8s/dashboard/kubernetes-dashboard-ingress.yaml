@@ -5,7 +5,7 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   rules:
-    - host: smart-platform-dashboard.com
+    - host: smart-platform-k8s-dashboard.com
       http:
         paths:
           - path: /

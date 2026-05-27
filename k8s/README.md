@@ -35,6 +35,10 @@ minikube image rm smart-lottery-service:1.0-SNAPSHOT
 minikube image rm smart-edge-service:1.0-SNAPSHOT
 minikube image rm smart-ui:1.0.0
 ```
+### Connect Local Dir with Minikube Dir
+```
+minikube mount D:\Temp\smart-platform-logs:/mnt/logs
+```
 ### Stop Minikube
 ```
 minikube stop

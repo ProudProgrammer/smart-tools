@@ -1,15 +1,13 @@
 # Smart Platform - Tools
 Tools for Smart Platform
 ### Tools
-```
 - JMeter JMX test plans as performance tests
 - PlantUML diagrams and markups as system architectures
 - Postman collections for manual testing
 - Shell scripts for automation of builds, run, etc.
 - Docker Compose configuration to start the whole system
-- Kubernetes infrastructure configuration
+- [Kubernetes infrastructure configuration](./k8s/README.md) 
 - Screenshots about the system
-```
 ### Build script
 ```
 Usage: ./build.sh [-u | --update -t | --tests -d | --docker]

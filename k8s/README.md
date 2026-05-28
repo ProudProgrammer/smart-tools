@@ -90,7 +90,7 @@ Example (C:\Windows\System32\drivers\etc\hosts):
 172.25.166.205 smart-lottery-service.com
 ```
 ### Open with Browser
-http://smart-platform-dashboard.com/<br>
+http://smart-platform-k8s-dashboard.com/<br>
 http://smart-platform.com/
 # Access Without Ingress
 ### Port-Forward to Reach Services Externally from the Cluster

@@ -1,0 +1,12 @@
+# Process List (e: all processes, f: full format)
+ps -ef
+
+Example:
+appuser@smart-lottery-service-deployment-bb7f745f4-s4l9d:/app$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+appuser        1       0  1 15:52 ?        00:00:11 java -Xms256m -Xmx512m -XX:+UseContainerSupport -jar app.jar
+appuser       44       0  0 15:58 pts/0    00:00:00 bash
+appuser      110      44  0 16:08 pts/0    00:00:00 ps -ef
+
+# Timezone
+cat /etc/timezone

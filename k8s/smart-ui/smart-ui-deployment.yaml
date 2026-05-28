@@ -30,3 +30,10 @@ spec:
                 configMapKeyRef:
                   name: smart-platform-configmap
                   key: smart-lottery-service-external-url
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "10m"
+            limits:
+              memory: "64Mi"
+              cpu: "100m"

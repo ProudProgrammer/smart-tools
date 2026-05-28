@@ -1,2 +1,2 @@
-# Java startup option that prints the system and JVM properties when the JVM starts (exits if there is no main).
+# Java startup option that prints the system and JVM properties when the JVM starts (exits if there is no main)
 java -XshowSettings:properties -version

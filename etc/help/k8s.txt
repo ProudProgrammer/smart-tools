@@ -1,3 +1,6 @@
+# Describe Node
+kubectl describe node
+
 # Create Deployment
 kubectl create deployment smart-lottery-service-deployment --image=smart-lottery-service:1.0-SNAPSHOT
 kubectl apply -f smart-lottery-service-deployment.yaml
@@ -11,9 +14,10 @@ kubectl get deployment smart-lottery-service-deployment -o yaml
 
 # Get Pods
 kubectl get pods
+kubectl get pods -o wide
 kubectl get pods --all-namespaces
 kubectl get pods -n smart-platform
-kubectl get pods -o wide
+kubectl get pods -n smart-platform -o wide
 
 # Describe Pod
 kubectl describe pod smart-lottery-service-deployment-6fcf7bbc84-j46pv

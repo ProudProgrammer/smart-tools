@@ -56,6 +56,10 @@ kubectl apply -f .\smart-ui\
 ```
 kubectl get all -n smart-platform
 ```
+### Restart Deployments
+```
+kubectl rollout restart deployment -n smart-platform
+```
 # Access With Ingress
 ### Create Ingresses
 ```

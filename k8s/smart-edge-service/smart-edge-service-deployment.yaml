@@ -4,7 +4,7 @@ metadata:
   name: smart-edge-service-deployment
   namespace: smart-platform
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: smart-edge-service
@@ -27,6 +27,24 @@ spec:
                 configMapKeyRef:
                   name: smart-platform-configmap
                   key: smart-lottery-service-url
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 15
           resources:
             requests:
               memory: "128Mi"

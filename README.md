@@ -56,7 +56,9 @@ Applied software development techniques:
 ![System Architecture](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/plantuml/system-architecture.png)
 
 ### User Interface of Smart Platform
-![User Interface](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/smart-platform.png)
+![User Interface](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/smart-platform-01.png)
+
+![User Interface](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/smart-platform-02.png)
 
 ### Swagger for Smart Platform
 ![Swagger](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/swagger.png)
@@ -66,9 +68,20 @@ Applied software development techniques:
 
 ![K8s Dashboard Workloads 2](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k8s-dashboard-workloads-2.png)
 
+![K8s Dashboard Workloads 2](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k8s-dashboard-workloads-3.png)
+
+![K8s Dashboard Workloads 2](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k8s-dashboard-workloads-4.png)
+
 ![K8s Dashboard Nodes](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k8s-dashboard-nodes.png)
 
 ### K9s Terminal-Based Interface for Kubernetes of Smart Platform
 ![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k9s-pods.png)
 
 ![K9s Logs](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k9s-logs.png)
+
+### Radar - Modern Kubernetes visibility
+![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/radar-home.png)
+
+![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/radar-topology.png)
+
+![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/radar-resources.png)

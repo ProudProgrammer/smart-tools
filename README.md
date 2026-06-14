@@ -6,7 +6,8 @@ Tools for Smart Platform
 - Postman collections for manual testing
 - Shell scripts for automation of builds, run, etc.
 - Docker Compose configuration to start the whole system
-- [Kubernetes infrastructure configuration](./k8s/README.md) 
+- [Kubernetes infrastructure configuration](./k8s/README.md)
+- [Kubernetes infrastructure configuration with Helm](./helm/README.md)
 - Screenshots about the system
 ### Build script
 ```
@@ -79,7 +80,7 @@ Applied software development techniques:
 
 ![K9s Logs](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/k9s-logs.png)
 
-### Radar - Modern Kubernetes visibility
+### Radar (Modern Kubernetes visibility) for Smart Platform
 ![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/radar-home.png)
 
 ![K9s Pods](https://raw.githubusercontent.com/ProudProgrammer/smart-tools/master/screenshots/radar-topology.png)

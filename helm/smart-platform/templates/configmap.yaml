@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smart-platform-configmap
+  namespace: {{ .Values.namespace }}
+data:
+  smart-lottery-service-url: {{ .Values.config.lotteryServiceUrl | quote }}
+  smart-edge-service-external-url: {{ .Values.config.edgeServiceExternalUrl | quote }}
+  smart-lottery-service-external-url: {{ .Values.config.lotteryServiceExternalUrl | quote }}

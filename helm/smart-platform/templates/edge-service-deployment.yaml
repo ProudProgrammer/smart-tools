@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-edge-service-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.edgeService.replicaCount }}
+  selector:
+    matchLabels:
+      app: smart-edge-service
+  template:
+    metadata:
+      labels:
+        app: smart-edge-service
+    spec:
+      containers:
+        - name: smart-edge-service
+          image: "{{ .Values.edgeService.image.repository }}:{{ .Values.edgeService.image.tag }}"
+          imagePullPolicy: {{ .Values.edgeService.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.edgeService.port }}
+          env:
+            - name: JAVA_ARGS
+              value: {{ .Values.edgeService.javaArgs | quote }}
+            - name: LOTTERY_SERVICE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: smart-platform-configmap
+                  key: smart-lottery-service-url
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.edgeService.port }}
+            failureThreshold: {{ .Values.edgeService.probes.startup.failureThreshold }}
+            periodSeconds: {{ .Values.edgeService.probes.startup.periodSeconds }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Values.edgeService.port }}
+            failureThreshold: {{ .Values.edgeService.probes.liveness.failureThreshold }}
+            periodSeconds: {{ .Values.edgeService.probes.liveness.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: {{ .Values.edgeService.port }}
+            failureThreshold: {{ .Values.edgeService.probes.readiness.failureThreshold }}
+            periodSeconds: {{ .Values.edgeService.probes.readiness.periodSeconds }}
+          resources:
+            requests:
+              memory: {{ .Values.edgeService.resources.requests.memory | quote }}
+              cpu: {{ .Values.edgeService.resources.requests.cpu | quote }}
+            limits:
+              memory: {{ .Values.edgeService.resources.limits.memory | quote }}
+              cpu: {{ .Values.edgeService.resources.limits.cpu | quote }}
+          volumeMounts:
+            - name: logs-storage
+              mountPath: /app/logs
+      volumes:
+        - name: logs-storage
+          persistentVolumeClaim:
+            claimName: smart-edge-service-logs-pvc

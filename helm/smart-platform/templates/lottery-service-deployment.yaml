@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smart-lottery-service-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.lotteryService.replicaCount }}
+  selector:
+    matchLabels:
+      app: smart-lottery-service
+  template:
+    metadata:
+      labels:
+        app: smart-lottery-service
+    spec:
+      containers:
+        - name: smart-lottery-service
+          image: "{{ .Values.lotteryService.image.repository }}:{{ .Values.lotteryService.image.tag }}"
+          imagePullPolicy: {{ .Values.lotteryService.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.lotteryService.port }}
+          env:
+            - name: JAVA_ARGS
+              value: {{ .Values.lotteryService.javaArgs | quote }}
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.lotteryService.port }}
+            failureThreshold: {{ .Values.lotteryService.probes.startup.failureThreshold }}
+            periodSeconds: {{ .Values.lotteryService.probes.startup.periodSeconds }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Values.lotteryService.port }}
+            failureThreshold: {{ .Values.lotteryService.probes.liveness.failureThreshold }}
+            periodSeconds: {{ .Values.lotteryService.probes.liveness.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: {{ .Values.lotteryService.port }}
+            failureThreshold: {{ .Values.lotteryService.probes.readiness.failureThreshold }}
+            periodSeconds: {{ .Values.lotteryService.probes.readiness.periodSeconds }}
+          resources:
+            requests:
+              memory: {{ .Values.lotteryService.resources.requests.memory | quote }}
+              cpu: {{ .Values.lotteryService.resources.requests.cpu | quote }}
+            limits:
+              memory: {{ .Values.lotteryService.resources.limits.memory | quote }}
+              cpu: {{ .Values.lotteryService.resources.limits.cpu | quote }}
+          volumeMounts:
+            - name: logs-storage
+              mountPath: /app/logs
+      volumes:
+        - name: logs-storage
+          persistentVolumeClaim:
+            claimName: smart-lottery-service-logs-pvc

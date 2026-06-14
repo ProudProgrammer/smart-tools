@@ -1,0 +1,12 @@
+Smart Platform successfully deployed!
+
+Accessible services (hosts file or DNS configuration required):
+  - UI:              http://{{ .Values.ingress.platform.host }}
+  - Edge Service:    http://{{ .Values.ingress.edgeService.host }}
+  - Lottery Service: http://{{ .Values.ingress.lotteryService.host }}
+  {{- if .Values.kubernetesDashboard.ingress.enabled }}
+  - K8s Dashboard:   http://{{ .Values.kubernetesDashboard.ingress.host }}
+  {{- end }}
+
+Check pods:
+  kubectl get pods -n {{ .Values.namespace }}

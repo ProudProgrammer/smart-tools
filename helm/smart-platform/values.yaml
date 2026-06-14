@@ -1,0 +1,119 @@
+# ──────────────────────────────────────────────
+# Namespace
+# ──────────────────────────────────────────────
+namespace: smart-platform
+
+# ──────────────────────────────────────────────
+# ConfigMap
+# ──────────────────────────────────────────────
+config:
+  lotteryServiceUrl: "smart-lottery-service-service:8081"
+  edgeServiceExternalUrl: "http://smart-egde-service.com"
+  lotteryServiceExternalUrl: "http://smart-lottery-service.com"
+
+# ──────────────────────────────────────────────
+# Ingress
+# ──────────────────────────────────────────────
+ingress:
+  platform:
+    enabled: true
+    host: smart-platform.com
+  edgeService:
+    enabled: true
+    host: smart-egde-service.com
+  lotteryService:
+    enabled: true
+    host: smart-lottery-service.com
+
+# ──────────────────────────────────────────────
+# Kubernetes Dashboard Ingress
+# ──────────────────────────────────────────────
+kubernetesDashboard:
+  ingress:
+    enabled: true
+    host: smart-platform-k8s-dashboard.com
+    namespace: kubernetes-dashboard
+    serviceName: kubernetes-dashboard
+    servicePort: 80
+
+# ──────────────────────────────────────────────
+# Edge Service
+# ──────────────────────────────────────────────
+edgeService:
+  replicaCount: 2
+  image:
+    repository: smart-edge-service
+    tag: "1.0-SNAPSHOT"
+    pullPolicy: Never
+  port: 8080
+  javaArgs: "-Xms32m -Xmx96m -XX:+UseContainerSupport -Duser.timezone=Europe/Budapest"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "50m"
+    limits:
+      memory: "256Mi"
+      cpu: "500m"
+  probes:
+    startup:
+      failureThreshold: 30
+      periodSeconds: 10
+    liveness:
+      failureThreshold: 3
+      periodSeconds: 15
+    readiness:
+      failureThreshold: 3
+      periodSeconds: 15
+  logs:
+    storage: "1Gi"
+    hostPath: /mnt/logs/smart-edge-service-logs-k8s
+
+# ──────────────────────────────────────────────
+# Lottery Service
+# ──────────────────────────────────────────────
+lotteryService:
+  replicaCount: 3
+  image:
+    repository: smart-lottery-service
+    tag: "1.0-SNAPSHOT"
+    pullPolicy: Never
+  port: 8081
+  javaArgs: "-Xms32m -Xmx96m -XX:+UseContainerSupport -Duser.timezone=Europe/Budapest"
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "50m"
+    limits:
+      memory: "256Mi"
+      cpu: "500m"
+  probes:
+    startup:
+      failureThreshold: 30
+      periodSeconds: 10
+    liveness:
+      failureThreshold: 3
+      periodSeconds: 15
+    readiness:
+      failureThreshold: 3
+      periodSeconds: 15
+  logs:
+    storage: "1Gi"
+    hostPath: /mnt/logs/smart-lottery-service-logs-k8s
+
+# ──────────────────────────────────────────────
+# UI
+# ──────────────────────────────────────────────
+ui:
+  replicaCount: 1
+  image:
+    repository: smart-ui
+    tag: "1.0.0"
+    pullPolicy: Never
+  port: 8001
+  resources:
+    requests:
+      memory: "32Mi"
+      cpu: "10m"
+    limits:
+      memory: "64Mi"
+      cpu: "100m"

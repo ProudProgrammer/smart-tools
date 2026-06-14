@@ -99,12 +99,21 @@ kubectl port-forward service/smart-edge-service-service 8080:8080 -n smart-platf
 kubectl port-forward service/smart-lottery-service-service 8081:8081 -n smart-platform
 kubectl port-forward service/smart-ui-service 8001:8001 -n smart-platform
 ```
-### Open a Proxy for Kubernetes Dashboard
+#  Kubernetes Dashboard - Enable and Open a Proxy
 ```
+minikube addons enable dashboard
+minikube addons enable metrics-server
 minikube dashboard
 ```
 # K9s Terminal-Based Interface
+https://k9scli.io/
 ```
 winget install derailed.k9s
 k9s
+```
+# Radar - Modern Kubernetes visibility
+https://github.com/skyhook-io/radar
+```
+irm https://get.radarhq.io/install.ps1 | iex
+radar
 ```

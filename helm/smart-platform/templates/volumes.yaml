@@ -1,0 +1,58 @@
+# ── Edge Service ──────────────────────────────
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: smart-edge-service-logs-pv
+spec:
+  capacity:
+    storage: {{ .Values.edgeService.logs.storage }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: {{ .Values.edgeService.logs.hostPath }}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smart-edge-service-logs-pvc
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  resources:
+    requests:
+      storage: {{ .Values.edgeService.logs.storage }}
+
+---
+# ── Lottery Service ───────────────────────────
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: smart-lottery-service-logs-pv
+spec:
+  capacity:
+    storage: {{ .Values.lotteryService.logs.storage }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: {{ .Values.lotteryService.logs.hostPath }}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smart-lottery-service-logs-pvc
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  resources:
+    requests:
+      storage: {{ .Values.lotteryService.logs.storage }}

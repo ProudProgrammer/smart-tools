@@ -1,0 +1,66 @@
+{{- if or .Values.ingress.platform.enabled .Values.ingress.edgeService.enabled .Values.ingress.lotteryService.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: smart-platform-ingress
+  namespace: {{ .Values.namespace }}
+spec:
+  rules:
+    {{- if .Values.ingress.platform.enabled }}
+    - host: {{ .Values.ingress.platform.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: smart-ui-service
+                port:
+                  number: {{ .Values.ui.port }}
+    {{- end }}
+    {{- if .Values.ingress.edgeService.enabled }}
+    - host: {{ .Values.ingress.edgeService.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: smart-edge-service-service
+                port:
+                  number: {{ .Values.edgeService.port }}
+    {{- end }}
+    {{- if .Values.ingress.lotteryService.enabled }}
+    - host: {{ .Values.ingress.lotteryService.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: smart-lottery-service-service
+                port:
+                  number: {{ .Values.lotteryService.port }}
+    {{- end }}
+{{- end }}
+
+{{- if .Values.kubernetesDashboard.ingress.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubernetes-dashboard-ingress
+  namespace: {{ .Values.kubernetesDashboard.ingress.namespace }}
+spec:
+  rules:
+    - host: {{ .Values.kubernetesDashboard.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.kubernetesDashboard.ingress.serviceName }}
+                port:
+                  number: {{ .Values.kubernetesDashboard.ingress.servicePort }}
+{{- end }}

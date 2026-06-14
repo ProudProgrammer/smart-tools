@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: smart-edge-service-service
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: smart-edge-service
+  ports:
+    - protocol: TCP
+      port: {{ .Values.edgeService.port }}
+      targetPort: {{ .Values.edgeService.port }}
